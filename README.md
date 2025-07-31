@@ -1,10 +1,14 @@
-my_trading_bot/
-├── app.py                 # Flask app
-├── signal_generator.py   # ML logic
-├── telegram_bot.py       # Bot handlers
-├── settings.json         # User preferences
-├── cache.json            # Cached signals
-├── utils/
-│   └── scraper.py        # Scrapes PO pairs
-├── requirements.txt      # Dependencies
-└── README.md             # Setup guide
+# Telegram Trading Bot (Flask + Render)
+
+Auto-refreshes trading signals every 30 seconds and sends updates via Telegram.
+
+## Features
+- Dynamic signal generation
+- OTC + regular Pocket Option pair scraping
+- Telegram bot integration
+- Hosted on Render via GitHub
+
+## Deploying
+1. Push files to GitHub
+2. Connect to Render
+3. Set `TELEGRAM_API_KEY` in Environment Variables
