@@ -3,4 +3,3 @@ gunicorn
 requests
 telebot
 beautifulsoup4
-scikit-learn
