@@ -1,4 +1,3 @@
-# signal_generator.py
 import requests
 import pandas as pd
 import pandas_ta as ta
@@ -20,6 +19,14 @@ def generate_signal(symbol='BTCUSDT', interval='5m'):
     df.ta.rsi(length=14, append=True)
     df.ta.macd(append=True)
     df.ta.ema(length=21, append=True)
+
+    if 'RSI_14' not in df.columns or 'MACD_12_26_9' not in df.columns or 'MACDs_12_26_9' not in df.columns:
+        return {
+            "asset": symbol,
+            "interval": interval,
+            "signal": "NO SIGNAL",
+            "confidence": 0
+        }
 
     latest = df.iloc[-1]
     rsi = latest['RSI_14']
@@ -44,6 +51,3 @@ def generate_signal(symbol='BTCUSDT', interval='5m'):
         "signal": signal,
         "confidence": confidence
     }
-git add signal_generator.py
-git commit -m "fix: handle missing indicators and prevent 500 error"
-git push
