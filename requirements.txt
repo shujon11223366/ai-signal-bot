@@ -1,6 +1,6 @@
-Flask
+flask
+gunicorn
 requests
-pandas
-pandas-ta
-setuptools<81
-numpy==1.26.4
+telebot
+beautifulsoup4
+scikit-learn
