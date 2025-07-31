@@ -1,22 +1,26 @@
-from flask import Flask, jsonify, request
-from signal_generator import generate_best_signal
+from flask import Flask
+import threading
+from telegram_bot import run_bot
+from signal_generator import generate_signals
 
 app = Flask(__name__)
+latest_signals = {}
+
+def refresh_loop():
+    while True:
+        try:
+            latest_signals.update(generate_signals())
+            print("Signals refreshed.")
+        except Exception as e:
+            print(f"Error in refresh loop: {e}")
+        time.sleep(30)
+
+threading.Thread(target=refresh_loop, daemon=True).start()
+threading.Thread(target=run_bot, daemon=True).start()
 
 @app.route('/')
 def home():
-    return "AI Binary Signal Bot Running"
+    return "Trading bot is active."
 
-@app.route('/signal', methods=['POST'])
-def signal():
-    data = request.json
-    asset = data.get('asset')
-    interval = data.get('interval')
-    if not asset or not interval:
-        return jsonify({"error": "asset and interval required"}), 400
-
-    result = generate_best_signal(asset, interval)
-    return jsonify(result)
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run()
