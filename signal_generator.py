@@ -1,7 +1,12 @@
+from utils.scraper import get_all_pairs
+
 def generate_signals():
-    # Mock logic — replace with ML model or signal algorithm
-    from utils.scraper import get_all_pairs
+    # Basic signal logic — use ML logic here if needed
     signals = {}
-    for pair in get_all_pairs():
-        signals[pair] = "Buy" if hash(pair) % 2 == 0 else "Sell"
+    pairs = get_all_pairs()
+
+    for pair in pairs:
+        action = "BUY" if hash(pair) % 2 == 0 else "SELL"
+        signals[pair] = action
+
     return signals
