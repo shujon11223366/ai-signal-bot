@@ -44,3 +44,6 @@ def generate_signal(symbol='BTCUSDT', interval='5m'):
         "signal": signal,
         "confidence": confidence
     }
+git add signal_generator.py
+git commit -m "fix: handle missing indicators and prevent 500 error"
+git push
