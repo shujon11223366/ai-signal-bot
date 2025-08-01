@@ -1,18 +1,16 @@
-from flask import Flask, request, jsonify
-import os
+from flask import Flask, render_template, jsonify
+from signals.signal_engine import generate_signals
 
 app = Flask(__name__)
 
-@app.route("/")
-def index():
-    return "✅ Bot is running on Render!"
+@app.route('/')
+def home():
+    return render_template("index.html")
 
-@app.route("/signal", methods=["POST"])
-def receive_signal():
-    data = request.json
-    print("📩 Signal received:", data)
-    return jsonify({"status": "success"}), 200
+@app.route('/api/signals')
+def api_signals():
+    signals = generate_signals()
+    return jsonify(signals)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))  # Render provides this env variable
-    app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
